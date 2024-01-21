@@ -1,5 +1,3 @@
-# unit1project
-
 ## Project Title: Zodiac Color Changing Game
 
 [Trello](https://trello.com/b/ngOL5GhC/ga-project-1) [Inspiration](https://www.memozor.com/memory-games/for-kids/colors)
