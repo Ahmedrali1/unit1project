@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
-  const cardColors = ['red', 'yellow', 'blue']
+  const cardColors = ['red', 'yellow']
   const cardPairs = generateCardPairs(cardColors)
 
   const shuffledPairs = shuffleArray(cardPairs)
 
   const gameContainer = document.getElementById('game-container')
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 4; i++) {
     const card = createCardElement(i, shuffledPairs[i])
     gameContainer.appendChild(card)
   }
@@ -42,14 +42,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const card = document.createElement('div')
     card.classList.add('card')
     card.dataset.color = pair.color
-    card.style.backgroundColor = card.innerText = ''
+    card.style.backgroundColor = ''
+    card.innerText = ''
 
     return card
   }
 
   function flipCard(card) {
     card.style.backgroundColor = card.dataset.color
-    card.innerText = '' // Clear the text content
+    card.innerText = ''
     card.classList.add('flipped')
   }
 
@@ -61,8 +62,9 @@ document.addEventListener('DOMContentLoaded', function () {
       matchedCards.push(firstCard, secondCard)
       flippedCards = []
 
-      if (matchedCards.length === 6) {
-        alert('Congratulations! You have won!')
+      if (matchedCards.length === 4) {
+        alert('Congratulations MORTAL! You have passed the tril!')
+        resetGame()
       }
     } else {
       setTimeout(() => {
@@ -85,5 +87,21 @@ document.addEventListener('DOMContentLoaded', function () {
       ;[array[i], array[j]] = [array[j], array[i]]
     }
     return array
+  }
+
+  function resetGame() {
+    flippedCards = []
+    matchedCards = []
+
+    while (gameContainer.firstChild) {
+      gameContainer.removeChild(gameContainer.firstChild)
+    }
+
+    const newShuffledPairs = shuffleArray(generateCardPairs(cardColors))
+
+    for (let i = 0; i < 4; i++) {
+      const card = createCardElement(i, newShuffledPairs[i])
+      gameContainer.appendChild(card)
+    }
   }
 })
