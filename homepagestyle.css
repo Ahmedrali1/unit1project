@@ -1,5 +1,5 @@
 body {
-  margin: 0;
+  margin: 1px;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -36,12 +36,12 @@ main {
   justify-content: center;
   align-items: center;
   max-width: 920px; /* Adjust the max-width based on the desired container width */
-  margin-top: 20px; /* Add margin to separate from the nav element */
+  margin-top: 50px; /* Add margin to separate from the nav element */
 }
 
 .card {
   width: 145px;
-  height: 170px; /* Retain the height of the cards */
+  height: 170px;
   background-color: gray;
   color: white;
   display: flex;
@@ -54,13 +54,13 @@ main {
 
 .sidebar-left {
   display: flex;
-  justify-content: flex-start; /* Change to flex-start to align sidebar to the left */
+  justify-content: left;
   align-items: center;
 }
 
 .sidebar-right {
   display: flex;
-  justify-content: flex-end; /* Change to flex-end to align sidebar to the right */
+  justify-content: right;
   align-items: center;
 }
 
