@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
-  const cardColors = ['red', 'yellow']
+  const cardColors = ['red', 'yellow', 'green', 'purple', 'blue']
   const cardPairs = generateCardPairs(cardColors)
 
   const shuffledPairs = shuffleArray(cardPairs)
 
   const gameContainer = document.getElementById('game-container')
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < 10; i++) {
     const card = createCardElement(i, shuffledPairs[i])
     gameContainer.appendChild(card)
   }
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
     flippedCards.push(clickedCard)
 
     if (flippedCards.length === 2) {
-      setTimeout(checkCards, 1000)
+      setTimeout(checkCards, 500)
     }
   })
 
@@ -62,8 +62,8 @@ document.addEventListener('DOMContentLoaded', function () {
       matchedCards.push(firstCard, secondCard)
       flippedCards = []
 
-      if (matchedCards.length === 4) {
-        alert('Congratulations MORTAL! You have passed the tril!')
+      if (matchedCards.length === 10) {
+        alert('Congratulations MORTAL! You have passed the first trial!')
         resetGame()
       }
     } else {
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
         flipCardBack(firstCard)
         flipCardBack(secondCard)
         flippedCards = []
-      }, 1000)
+      }, 500)
     }
   }
 
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const newShuffledPairs = shuffleArray(generateCardPairs(cardColors))
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 10; i++) {
       const card = createCardElement(i, newShuffledPairs[i])
       gameContainer.appendChild(card)
     }
