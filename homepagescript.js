@@ -1,107 +1,145 @@
-document.addEventListener('DOMContentLoaded', function () {
-  const cardColors = ['red', 'yellow', 'green', 'purple', 'blue']
-  const cardPairs = generateCardPairs(cardColors)
+const cardColors = ['red', 'blue', 'green', 'yellow', 'purple']
 
-  const shuffledPairs = shuffleArray(cardPairs)
+let flippedCards = []
+let matchedCards = []
 
-  const gameContainer = document.getElementById('game-container')
-  for (let i = 0; i < 10; i++) {
-    const card = createCardElement(i, shuffledPairs[i])
-    gameContainer.appendChild(card)
+function generateCardPairs(colors) {
+  const pairs = []
+
+  for (let color of colors) {
+    pairs.push(color)
+    pairs.push(color)
   }
 
-  let flippedCards = []
-  let matchedCards = []
+  return pairs
+}
 
-  gameContainer.addEventListener('click', function (event) {
-    const clickedCard = event.target
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[array[i], array[j]] = [array[j], array[i]]
+  }
 
-    if (!clickedCard.classList.contains('card') || flippedCards.length >= 2) {
-      return
-    }
+  return array
+}
 
-    flipCard(clickedCard)
+function createCardElement(index, color) {
+  const card = document.createElement('div')
+  card.className = 'card'
+  card.dataset.color = color
+  card.innerText = ''
 
-    flippedCards.push(clickedCard)
+  card.addEventListener('click', () => {
+    if (!flippedCards.includes(card) && flippedCards.length < 2) {
+      flipCard(card)
+      flippedCards.push(card)
 
-    if (flippedCards.length === 2) {
-      setTimeout(checkCards, 500)
+      if (flippedCards.length === 2) {
+        checkCards()
+      }
     }
   })
 
-  function generateCardPairs(colors) {
-    const pairs = []
-    for (const color of colors) {
-      pairs.push({ color })
-      pairs.push({ color })
-    }
-    return pairs
+  return card
+}
+
+function flipCard(card) {
+  card.style.backgroundColor = card.dataset.color
+  card.style.color = '#fff'
+}
+
+function flipCardBack(card) {
+  if (!matchedCards.includes(card)) {
+    setTimeout(() => {
+      card.style.backgroundColor = 'gray'
+      card.style.color = 'white'
+    }, 500)
   }
+}
 
-  function createCardElement(index, pair) {
-    const card = document.createElement('div')
-    card.classList.add('card')
-    card.dataset.color = pair.color
-    card.style.backgroundColor = ''
-    card.innerText = ''
+function checkCards() {
+  const firstCard = flippedCards[0]
+  const secondCard = flippedCards[1]
 
-    return card
-  }
-
-  function flipCard(card) {
-    card.style.backgroundColor = card.dataset.color
-    card.innerText = ''
-    card.classList.add('flipped')
-  }
-
-  function checkCards() {
-    const firstCard = flippedCards[0]
-    const secondCard = flippedCards[1]
-
-    if (firstCard.dataset.color === secondCard.dataset.color) {
-      matchedCards.push(firstCard, secondCard)
-      flippedCards = []
-
-      if (matchedCards.length === 10) {
-        alert('Congratulations MORTAL! You have passed the first trial!')
-        resetGame()
-      }
-    } else {
-      setTimeout(() => {
-        flipCardBack(firstCard)
-        flipCardBack(secondCard)
-        flippedCards = []
-      }, 500)
-    }
-  }
-
-  function flipCardBack(card) {
-    card.style.backgroundColor = ''
-    card.innerText = ''
-    card.classList.remove('flipped')
-  }
-
-  function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1))
-      ;[array[i], array[j]] = [array[j], array[i]]
-    }
-    return array
-  }
-
-  function resetGame() {
+  if (firstCard.dataset.color === secondCard.dataset.color) {
+    matchedCards.push(firstCard, secondCard)
     flippedCards = []
-    matchedCards = []
 
-    while (gameContainer.firstChild) {
-      gameContainer.removeChild(gameContainer.firstChild)
+    if (matchedCards.length === 10) {
+      displayCongratulationsMessage()
     }
+  } else {
+    setTimeout(() => {
+      flipCardBack(firstCard)
+      flipCardBack(secondCard)
+      flippedCards = []
+    }, 1000)
+  }
+}
 
-    const newShuffledPairs = shuffleArray(generateCardPairs(cardColors))
+function displayCongratulationsMessage() {
+  const congratulationsElement = document.getElementById('congratulations')
+  congratulationsElement.innerText =
+    'Congratulations MORTAL! You have passed the first trial!'
 
-    for (let i = 0; i < 10; i++) {
-      const card = createCardElement(i, newShuffledPairs[i])
-      gameContainer.appendChild(card)
-    }
+  const playAgainButton = document.createElement('button')
+  playAgainButton.innerText = 'Play Again'
+  playAgainButton.className = 'button'
+  playAgainButton.addEventListener('click', () => {
+    resetGame()
+    congratulationsElement.style.display = 'none'
+  })
+
+  const returnHomeButton = document.createElement('button')
+  returnHomeButton.innerText = 'Return to Home Page'
+  returnHomeButton.className = 'button'
+  returnHomeButton.addEventListener('click', goToHomePage)
+
+  const optionsContainer = document.createElement('div')
+  optionsContainer.className = 'button-container'
+  optionsContainer.appendChild(playAgainButton)
+  optionsContainer.appendChild(returnHomeButton)
+
+  congratulationsElement.appendChild(optionsContainer)
+  congratulationsElement.style.display = 'block'
+}
+
+function resetCongratulationsMessage() {
+  const congratulationsElement = document.getElementById('congratulations')
+  congratulationsElement.innerText = ''
+  congratulationsElement.style.display = 'none'
+}
+
+function resetGame() {
+  flippedCards = []
+  matchedCards = []
+  resetCongratulationsMessage()
+
+  const gameContainer = document.getElementById('game-container')
+  while (gameContainer.firstChild) {
+    gameContainer.removeChild(gameContainer.firstChild)
+  }
+
+  const newShuffledPairs = shuffleArray(generateCardPairs(cardColors))
+
+  for (let i = 0; i < 10; i++) {
+    const card = createCardElement(i, newShuffledPairs[i])
+    gameContainer.appendChild(card)
+  }
+}
+
+function goToHomePage() {
+  window.location.href = 'index.html' // Replace "index.html" with the actual path to your homepage
+}
+
+// Initialize the game
+window.addEventListener('DOMContentLoaded', () => {
+  const gameContainer = document.getElementById('game-container')
+
+  const shuffledPairs = shuffleArray(generateCardPairs(cardColors))
+
+  for (let i = 0; i < 10; i++) {
+    const card = createCardElement(i, shuffledPairs[i])
+    gameContainer.appendChild(card)
   }
 })

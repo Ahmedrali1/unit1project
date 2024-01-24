@@ -78,8 +78,11 @@ main {
 
 footer {
   grid-column: 1 / span 5;
-  height: 50px;
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
+  color: black;
+  font-weight: bolder;
+  background-color: burlywood;
 }

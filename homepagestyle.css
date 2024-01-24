@@ -1,9 +1,10 @@
 body {
   margin: 0;
   height: 100vh;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: auto 1fr auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   color: whitesmoke;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   text-align: center;
@@ -13,7 +14,6 @@ body {
 }
 
 nav {
-  grid-column: span 5;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,7 +25,6 @@ h1 {
 }
 
 main {
-  grid-column: 2 / span 3;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,43 +33,85 @@ main {
 #game-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
+  max-width: 920px; /* Adjust the max-width based on the desired container width */
+  margin-top: 20px; /* Add margin to separate from the nav element */
 }
 
 .card {
   width: 145px;
-  height: 170px;
+  height: 170px; /* Retain the height of the cards */
   background-color: gray;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 24px;
-  margin-bottom: 1px;
-  margin-right: 1px;
+  margin: 10px;
   cursor: pointer;
 }
 
 .sidebar-left {
-  grid-row: 2 / span 1;
-  grid-column: 1;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start; /* Change to flex-start to align sidebar to the left */
   align-items: center;
 }
 
 .sidebar-right {
-  grid-row: 2 / span 1;
-  grid-column: 5;
+  display: flex;
+  justify-content: flex-end; /* Change to flex-end to align sidebar to the right */
+  align-items: center;
+}
+
+footer {
+  height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-footer {
-  grid-column: span 5;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* Added styles for flipped cards */
+.card.flipped {
+  background-color: #eee;
+  color: '';
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.button:hover {
+  background-color: #45a049;
+}
+
+.button-container {
+  margin-top: 20px;
+  text-align: center;
+  padding: 10px;
+}
+
+.quit-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.quit-button:hover {
+  background-color: #d32f2f;
 }
