@@ -27,6 +27,9 @@ function createCardElement(index, color) {
   const card = document.createElement('div')
   card.className = 'card'
   card.dataset.color = color
+  card.style.backgroundImage = "url('https://i.imgur.com/bQkmxD6.png')"
+  card.style.backgroundSize = 'cover'
+  card.style.backgroundPosition = 'center'
   card.innerText = ''
 
   card.addEventListener('click', () => {
@@ -44,6 +47,7 @@ function createCardElement(index, color) {
 }
 
 function flipCard(card) {
+  card.style.backgroundImage = ''
   card.style.backgroundColor = card.dataset.color
   card.style.color = '#fff'
 }
@@ -51,6 +55,7 @@ function flipCard(card) {
 function flipCardBack(card) {
   if (!matchedCards.includes(card)) {
     setTimeout(() => {
+      card.style.backgroundImage = "url('https://i.imgur.com/bQkmxD6.png')"
       card.style.backgroundColor = 'gray'
       card.style.color = 'white'
     }, 500)
@@ -129,7 +134,7 @@ function resetGame() {
 }
 
 function goToHomePage() {
-  window.location.href = 'index.html' // Replace "index.html" with the actual path to your homepage
+  window.location.href = 'index.html'
 }
 
 // Initialize the game
