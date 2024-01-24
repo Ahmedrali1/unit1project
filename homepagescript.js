@@ -78,7 +78,7 @@ function checkCards() {
       flipCardBack(firstCard)
       flipCardBack(secondCard)
       flippedCards = []
-    }, 1000)
+    }, 500)
   }
 }
 
@@ -137,7 +137,6 @@ function goToHomePage() {
   window.location.href = 'index.html'
 }
 
-// Initialize the game
 window.addEventListener('DOMContentLoaded', () => {
   const gameContainer = document.getElementById('game-container')
 
