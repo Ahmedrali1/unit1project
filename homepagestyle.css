@@ -35,8 +35,8 @@ main {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  max-width: 920px; /* Adjust the max-width based on the desired container width */
-  margin-top: 50px; /* Add margin to separate from the nav element */
+  max-width: 920px;
+  margin-top: 50px;
 }
 
 .card {
