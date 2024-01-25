@@ -14,6 +14,7 @@ function generateCardPairs(colors) {
   return pairs
 }
 
+//this snippet of code is credited and created by the use of AI Fisher-Yates algorithm
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
@@ -22,6 +23,7 @@ function shuffleArray(array) {
 
   return array
 }
+//end of the credited code
 
 function createCardElement(index, color) {
   const card = document.createElement('div')

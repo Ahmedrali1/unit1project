@@ -83,7 +83,7 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: wheat;
+  color: rgb(244, 225, 188);
   font-weight: bolder;
   background-color: rgb(52, 43, 35);
 }
